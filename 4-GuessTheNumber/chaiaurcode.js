@@ -26,10 +26,8 @@ if (playGame) {
 function validateGuess(guess) {
   if (isNaN(guess)) {
     alert('PLease enter a valid number');
-  } else if (guess < 1) {
-    alert('PLease enter a number more than 1');
-  } else if (guess > 100) {
-    alert('PLease enter a  number less than 100');
+  } else if (guess<0 || guess>100){
+    alert("Please enter a number between 0 and 100")
   } else {
     prevGuess.push(guess);
     if (numGuess === 10) {
@@ -48,9 +46,9 @@ function checkGuess(guess) {
     displayMessage(`You guessed it right`);
     endGame();
   } else if (guess < randomNumber) {
-    displayMessage(`Number is TOOO low`);
+    displayMessage(`Your number is low`);
   } else if (guess > randomNumber) {
-    displayMessage(`Number is TOOO High`);
+    displayMessage(`Your number is high`);
   }
 }
 
@@ -69,16 +67,16 @@ function endGame() {
   userInput.value = '';
   userInput.setAttribute('disabled', '');
   p.classList.add('button');
-  p.innerHTML = `<h2 id="newGame">Start a new Game</h2>`;
-  p.style.cursor = 'pointer';
+  p.innerHTML = `<h2 id="newGame">Start new Game</h2>`;
+  p.style.cursor = 'pointer'
   startOver.appendChild(p);
   playGame = false;
   newGame();
 }
 
 function newGame() {
-  //Here the main function is to reassign all the variables
-  p.addEventListener('click', function (e) {
+  const newGameButton = document.querySelector('#newGame');
+  newGameButton.addEventListener('click', function (e) {
     randomNumber = parseInt(Math.random() * 100 + 1);
     prevGuess = [];
     numGuess = 1;
